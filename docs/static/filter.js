@@ -47,18 +47,19 @@ $(() => {
 			var modules = $(item).find("a.reference.internal");
 			var matching_all = true;
 			//
-			list_search.forEach((sstring) => {
-				var matching = (sstring[0] == "-");
+			list_search.forEach((in_string) => {
+				var search_term = in_string.toLocaleLowerCase("en-US");
+				var matching = (search_term[0] == "-");
 				for(var modi = 0; modi < modules.length; ++modi) {
 					module = modules[modi];
 					var mod_name = module.firstChild.firstChild.textContent;
-					if(sstring[0] == "-") {
-						if(mod_name.match(sstring.substr(1))) {
+					if(search_term[0] == "-") {
+						if(mod_name.includes(search_term.substr(1))) {
 							matching = false;
 							break;
 						}
 					} else {
-						if(mod_name.match(sstring)) {
+						if(mod_name.includes(search_term)) {
 							$(module).addClass("this_module");
 							matching = true;
 						}
