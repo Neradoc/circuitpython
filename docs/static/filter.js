@@ -1,4 +1,6 @@
 $(() => {
+	var reset_link = '<a href="?" id="support-matrix-filter-reset">&times;</a>';
+
 	var urlTimeout = null;
 	function setURL(query, value) {
 		clearTimeout(urlTimeout);
@@ -20,15 +22,6 @@ $(() => {
 
 			window.history.pushState(null, document.title, url.href);
 		}, 1000);
-	}
-
-	function handlePageLoad() {
-		var url = new URL(window.location.href);
-		//get values from URL
-		var filters = url.searchParams.getAll('filter');
-		search_terms = filters.join(" ");
-		$("#support-matrix-filter").val(search_terms);
-		run_filter();
 	}
 
 	function filter_boards(search_string) {
@@ -73,7 +66,7 @@ $(() => {
 				nvisible += 1;
 			}
 		});
-		$("#support-matrix-filter-num").html(`(${nvisible}/${nboards})`);
+		$("#support-matrix-filter-num").html(`${reset_link} (${nvisible}/${nboards})`);
 		setURL("filter",list_search);
 	}
 
@@ -81,6 +74,16 @@ $(() => {
 		var search_string = $("#support-matrix-filter").val();
 		filter_boards(search_string);
 	}
+
+	function handlePageLoad() {
+		var url = new URL(window.location.href);
+		//get values from URL
+		var filters = url.searchParams.getAll('filter');
+		search_terms = filters.join(" ");
+		$("#support-matrix-filter").val(search_terms);
+		run_filter();
+	}
+
 	$("#support-matrix-filter").on("keyup", run_filter);
 	// $(document).on("keyup", "#support-matrix-filter", run_filter);
 	handlePageLoad();

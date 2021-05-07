@@ -8,7 +8,8 @@ capable board.
 
 .. raw:: html
 
-    <p id="support-matrix-filter-block"><input placeholder="Filter the boards by available modules" id="support-matrix-filter" type="text"/><span id="support-matrix-filter-num">(all)</span></p>
+    <p id="support-matrix-filter-block"><input placeholder="Filter the boards by available modules" id="support-matrix-filter" type="text"/><span id="support-matrix-filter-num">(all)</span><br/>
+    <span id="support-matrix-filter-help">Select boards missing a module by prefixing it with <b>-</b> like this: <a href="?filter=-rtc" title="-rtc">-rtc</a></span></p>
 
 .. rst-class:: support-matrix-table
 .. list-table::

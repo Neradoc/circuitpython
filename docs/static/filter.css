@@ -7,6 +7,32 @@
 	right: 10px;
 	top: 4px;
 }
+#support-matrix-filter-help {
+	color: #808080;
+	font-size: 75%;
+	margin: 0px 8px;
+	position: absolute;
+}
+
+#support-matrix-filter-help { display: none; }
+#support-matrix-filter-block:hover #support-matrix-filter-help,
+#support-matrix-filter-block input:focus ~ #support-matrix-filter-help
+{
+	display: inline !important;
+}
+
+#support-matrix-filter-block a,
+#support-matrix-filter-block b
+{
+	border-radius: 16px;
+	padding: 2px 4px;
+	background: #DDD;
+	color: #888;
+}
+#support-matrix-filter-block a:hover {
+	background: #333;
+	color: white;
+}
 .support-matrix-table .this_module code,
 .support-matrix-table .this_module span {
 	background: black;
