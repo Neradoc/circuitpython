@@ -67,6 +67,29 @@ mp_obj_t common_hal_board_create_i2c(void) {
 #endif
 
 
+#if BOARD_SECOND_I2C
+// Statically allocate the I2C object so it can live past the end of the heap and into the next VM.
+// That way it can be used by built-in I2CDisplay displays and be accessible through board.I2C().
+STATIC busio_i2c_obj_t second_i2c_obj;
+STATIC mp_obj_t second_i2c_singleton = NULL;
+
+mp_obj_t common_hal_board_get_second_i2c(void) {
+    return second_i2c_singleton;
+}
+
+mp_obj_t common_hal_board_create_second_i2c(void) {
+    // All callers have either already verified this or come so early that it can't be otherwise.
+    assert(second_i2c_singleton == NULL || common_hal_busio_i2c_deinited(second_i2c_singleton));
+    busio_i2c_obj_t *self = &second_i2c_obj;
+    self->base.type = &busio_i2c_type;
+
+    common_hal_busio_i2c_construct(self, SECOND_I2C_BUS_SCL, SECOND_I2C_BUS_SDA, 100000, 255);
+    second_i2c_singleton = (mp_obj_t)self;
+    return second_i2c_singleton;
+}
+#endif
+
+
 #if BOARD_SPI
 // Statically allocate the SPI object so it can live past the end of the heap and into the next VM.
 // That way it can be used by built-in FourWire displays and be accessible through board.SPI().
@@ -149,6 +172,23 @@ void reset_board_busses(void) {
         if (!display_using_i2c) {
             common_hal_busio_i2c_deinit(i2c_singleton);
             i2c_singleton = NULL;
+        }
+    }
+    #endif
+    #if BOARD_SECOND_I2C
+    bool display_using_second_i2c = false;
+    #if CIRCUITPY_DISPLAYIO
+    for (uint8_t i = 0; i < CIRCUITPY_DISPLAY_LIMIT; i++) {
+        if (displays[i].bus_base.type == &displayio_i2cdisplay_type && displays[i].i2cdisplay_bus.bus == second_i2c_singleton) {
+            display_using_second_i2c = true;
+            break;
+        }
+    }
+    #endif
+    if (second_i2c_singleton != NULL) {
+        if (!display_using_second_i2c) {
+            common_hal_busio_i2c_deinit(second_i2c_singleton);
+            second_i2c_singleton = NULL;
         }
     }
     #endif

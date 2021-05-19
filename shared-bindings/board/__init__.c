@@ -28,7 +28,7 @@
 #include "py/runtime.h"
 
 #include "shared-bindings/board/__init__.h"
-#if BOARD_I2C
+#if defined(BOARD_I2C) || defined(BOARD_SECOND_I2C)
 #include "shared-bindings/busio/I2C.h"
 #endif
 #if BOARD_SPI
@@ -65,6 +65,30 @@ mp_obj_t board_i2c(void) {
 }
 #endif
 MP_DEFINE_CONST_FUN_OBJ_0(board_i2c_obj, board_i2c);
+
+
+//| def SECOND_I2C() -> busio.I2C:
+//|     """Returns the `busio.I2C` object for the secondary I2C pins, usually the STEMMA[QT] connector. It is a singleton."""
+//|     ...
+//|
+
+#if BOARD_SECOND_I2C
+mp_obj_t board_second_i2c(void) {
+    mp_obj_t singleton = common_hal_board_get_second_i2c();
+    if (singleton != NULL && !common_hal_busio_i2c_deinited(singleton)) {
+        return singleton;
+    }
+    assert_pin_free(SECOND_I2C_BUS_SDA);
+    assert_pin_free(SECOND_I2C_BUS_SCL);
+    return common_hal_board_create_second_i2c();
+}
+#else
+mp_obj_t board_second_i2c(void) {
+    mp_raise_NotImplementedError_varg(translate("No default %q bus"), MP_QSTR_SECOND_I2C);
+    return NULL;
+}
+#endif
+MP_DEFINE_CONST_FUN_OBJ_0(board_second_i2c_obj, board_second_i2c);
 
 
 //| def SPI() -> busio.SPI:
