@@ -7,6 +7,9 @@
 #define DEFAULT_I2C_BUS_SCL (&pin_GPIO25)
 #define DEFAULT_I2C_BUS_SDA (&pin_GPIO24)
 
+#define SECOND_I2C_BUS_SCL (&pin_GPIO23)
+#define SECOND_I2C_BUS_SDA (&pin_GPIO22)
+
 #define DEFAULT_SPI_BUS_SCK (&pin_GPIO6)
 #define DEFAULT_SPI_BUS_MOSI (&pin_GPIO3)
 #define DEFAULT_SPI_BUS_MISO (&pin_GPIO4)
