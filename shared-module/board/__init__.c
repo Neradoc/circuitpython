@@ -68,8 +68,8 @@ mp_obj_t common_hal_board_create_i2c(void) {
 
 
 #if BOARD_SECOND_I2C
-// Statically allocate the I2C object so it can live past the end of the heap and into the next VM.
-// That way it can be used by built-in I2CDisplay displays and be accessible through board.I2C().
+// This is the secondary I2C object, for boards that have an additional dedicated I2C port.
+// For example for board.STEMMA_I2C on the QT PY 2040.
 STATIC busio_i2c_obj_t second_i2c_obj;
 STATIC mp_obj_t second_i2c_singleton = NULL;
 
@@ -186,6 +186,7 @@ void reset_board_busses(void) {
     }
     #endif
     if (second_i2c_singleton != NULL) {
+        common_hal_busio_i2c_unlock(second_i2c_singleton);
         if (!display_using_second_i2c) {
             common_hal_busio_i2c_deinit(second_i2c_singleton);
             second_i2c_singleton = NULL;
