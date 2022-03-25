@@ -202,10 +202,10 @@ void struct_time_to_tm(mp_obj_t t, timeutils_struct_time_t *tm) {
 #if MICROPY_LONGINT_IMPL == MICROPY_LONGINT_IMPL_NONE
 // Function to return a NotImplementedError on platforms that don't
 // support long integers
-STATIC mp_obj_t time_not_implemented(void) {
+STATIC mp_obj_t time_not_implemented(size_t n_args, const mp_obj_t *args) {
     mp_raise_NotImplementedError(translate("No long integer support"));
 }
-MP_DEFINE_CONST_FUN_OBJ_0(time_not_implemented_obj, time_not_implemented);
+MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(time_not_implemented_obj, 0, 1, time_not_implemented);
 #endif
 
 #if MICROPY_LONGINT_IMPL != MICROPY_LONGINT_IMPL_NONE
