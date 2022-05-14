@@ -16,7 +16,6 @@ build:
 submodules:
     include:
         - extmod/ulab
-        - frozen/*
 
 formats:
     - pdf
