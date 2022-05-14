@@ -14,7 +14,8 @@ build:
         python: "3"
     jobs:
         post_install:
-            - git submodule update --init --force frozen
+            - python tools/ci_fetch_deps.py website main
+#             - git submodule update --init --force frozen
 
 submodules:
    include:
