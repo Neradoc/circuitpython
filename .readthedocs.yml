@@ -14,8 +14,11 @@ build:
         python: "3"
 
 submodules:
-    include:
-        - extmod/ulab
+#    include: ["extmod/ulab", "frozen"]
+#    include:
+#        - extmod/ulab
+    exclude:
+        - ports/broadcom/firmware
 
 formats:
     - pdf
