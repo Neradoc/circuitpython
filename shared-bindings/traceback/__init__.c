@@ -35,6 +35,18 @@
 //| This is useful when you want to print stack traces under program control.
 //|
 //| |see_cpython_module| :mod:`cpython:traceback`.
+//|
+//| Here is an example of how it is used in Circuitpython:
+//|
+//|     .. code-block:: python
+//|
+//|         import traceback
+//|         try:
+//|             # your code goes here
+//|             raise OSError("This is an error")
+//|         except OSError as ex:
+//|             traceback.print_exception(ex, ex, ex.__traceback__)
+//|
 //| """
 //| ...
 
