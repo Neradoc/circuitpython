@@ -169,7 +169,7 @@ STATIC MP_DEFINE_CONST_FUN_OBJ_2(socketpool_socket_listen_obj, socketpool_socket
 //|         * the number of bytes received into the given buffer
 //|         * a remote_address, which is a tuple of ip address and port number
 //|
-//|         :param object buffer: buffer to read into"""
+//|         :param WriteableBuffer buffer: buffer to read into"""
 //|         ...
 STATIC mp_obj_t socketpool_socket_recvfrom_into(mp_obj_t self_in, mp_obj_t data_in) {
     socketpool_socket_obj_t *self = MP_OBJ_TO_PTR(self_in);
@@ -197,7 +197,7 @@ STATIC MP_DEFINE_CONST_FUN_OBJ_2(socketpool_socket_recvfrom_into_obj, socketpool
 //|         Suits sockets of type SOCK_STREAM
 //|         Returns an int of number of bytes read.
 //|
-//|         :param bytearray buffer: buffer to receive into
+//|         :param WriteableBuffer buffer: buffer to receive into
 //|         :param int bufsize: optionally, a maximum number of bytes to read."""
 //|         ...
 STATIC mp_obj_t _socketpool_socket_recv_into(size_t n_args, const mp_obj_t *args) {
