@@ -44,8 +44,19 @@
 //|         try:
 //|             # your code goes here
 //|             raise OSError("This is an error")
-//|         except OSError as ex:
-//|             traceback.print_exception(ex, ex, ex.__traceback__)
+//|         except OSError as exc:
+//|             traceback.print_exception(exc, exc, exc.__traceback__)
+//|
+//| If compatibility with python version before 3.10 is not required, you can use:
+//|
+//|     .. code-block:: python
+//|
+//|         import traceback
+//|         try:
+//|             # your code goes here
+//|             raise OSError("This is an error")
+//|         except OSError as exc:
+//|             traceback.print_exception(exc)
 //|
 //| """
 //| ...
