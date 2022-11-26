@@ -165,7 +165,8 @@ STATIC MP_DEFINE_CONST_FUN_OBJ_2(socketpool_socket_listen_obj, socketpool_socket
 //|     def recvfrom_into(self, buffer: WriteableBuffer) -> Tuple[int, Tuple[str, int]]:
 //|         """Reads some bytes from a remote address.
 //|
-//|         Returns a tuple containing
+//|         Returns a tuple containing:
+//|
 //|         * the number of bytes received into the given buffer
 //|         * a remote_address, which is a tuple of ip address and port number
 //|
