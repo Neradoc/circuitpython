@@ -62,7 +62,7 @@ inline void filesystem_tick(void) {
     }
 }
 
-#if CIRCUITPY_USB
+#if CIRCUITPY_USB || !CIRCUITPY_FULL_BUILD
 static void make_empty_file(FATFS *fatfs, const char *path) {
     FIL fp;
     f_open(fatfs, &fp, path, FA_WRITE | FA_CREATE_ALWAYS);
