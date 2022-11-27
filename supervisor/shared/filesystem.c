@@ -62,13 +62,13 @@ inline void filesystem_tick(void) {
     }
 }
 
-
+#if CIRCUITPY_USB
 static void make_empty_file(FATFS *fatfs, const char *path) {
     FIL fp;
     f_open(fatfs, &fp, path, FA_WRITE | FA_CREATE_ALWAYS);
     f_close(&fp);
 }
-
+#endif
 
 static void make_sample_code_file(FATFS *fatfs) {
     #if CIRCUITPY_FULL_BUILD
@@ -121,6 +121,7 @@ bool filesystem_init(bool create_allowed, bool force_create) {
             return false;
         }
 
+        #if CIRCUITPY_USB
         // inhibit file indexing on MacOS
         res = f_mkdir(&vfs_fat->fatfs, "/.fseventsd");
         if (res != FR_OK) {
@@ -129,6 +130,8 @@ bool filesystem_init(bool create_allowed, bool force_create) {
         make_empty_file(&vfs_fat->fatfs, "/.metadata_never_index");
         make_empty_file(&vfs_fat->fatfs, "/.Trashes");
         make_empty_file(&vfs_fat->fatfs, "/.fseventsd/no_log");
+        #endif
+
         // make a sample code.py file
         make_sample_code_file(&vfs_fat->fatfs);
 
