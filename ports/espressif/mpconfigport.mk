@@ -281,11 +281,6 @@ endif
 # BLE and alarm can be included. This setting prevents the partition layout from
 # changing.
 ifeq ($(CIRCUITPY_LEGACY_4MB_FLASH_LAYOUT), 1)
-ifeq ($(IDF_TARGET_ARCH), xtensa)
-	CIRCUITPY_ALARM ?= 1
-else
-CIRCUITPY_ALARM = 0
-endif
 CIRCUITPY_DUALBANK = 1
 CIRCUITPY_BLEIO ?= 0
 CIRCUITPY_SETTABLE_PROCESSOR_FREQUENCY = 0
